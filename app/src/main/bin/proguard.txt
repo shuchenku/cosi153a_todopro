@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:7
+-keep class com.cosi153a.todopro.MainActivity { <init>(...); }
+
+# onClick res/layout/task_view.xml #generated:20
+-keepclassmembers class * { *** onDoneButtonClick(...); }
+

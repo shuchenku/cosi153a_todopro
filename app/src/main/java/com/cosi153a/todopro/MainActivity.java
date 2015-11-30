@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
@@ -16,6 +17,10 @@ import android.app.ListActivity;
 
 import com.cosi153a.todopro.db.TaskContract;
 import com.cosi153a.todopro.db.TaskDBHelper;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends ListActivity {
 
@@ -42,27 +47,10 @@ public class MainActivity extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_task:
-//                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                builder.setTitle("Add a task");
-//                builder.setMessage("What do you want to do?");
-//                final EditText inputField = new EditText(this);
-//                builder.setView(inputField);
-//                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        String task = inputField.getText().toString();
-//                        Log.d("MainActivity", task);
-
                 Intent intent = new Intent(MainActivity.this,NewToDoActivity.class);
                 startActivityForResult(intent, REQUEST_CODE);
-
                 updateUI();
-//                });
-//                builder.setNegativeButton("Cancel",null);
-//
-//                builder.create().show();
                 return true;
-
             default:
                 return false;
         }
@@ -79,16 +67,20 @@ public class MainActivity extends ListActivity {
             {
                 final String title = iData.getExtras().getString("TITLE");
                 final String details = iData.getExtras().getString("DETAILS");
-
+                final Date datetime = (Date) iData.getExtras().getSerializable("TIME");
 
                 Log.v(TAG,title+details);
                 helper = new TaskDBHelper(MainActivity.this);
                 SQLiteDatabase db = helper.getWritableDatabase();
                 ContentValues values = new ContentValues();
+                SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                Log.d(TAG,title+ ":" + details + ":" + time.format(datetime));
 
                 values.clear();
                 values.put(TaskContract.Columns.TASK, title);
                 values.put(TaskContract.Columns.DETAILS, details);
+                values.put(TaskContract.Columns.DATE, time.format(datetime));
                 db.insertWithOnConflict(TaskContract.TABLE, null, values,
                         SQLiteDatabase.CONFLICT_IGNORE);
 //                Log.v( TAG, "Retrieved Value zData is "+zData );
@@ -105,27 +97,24 @@ public class MainActivity extends ListActivity {
         helper = new TaskDBHelper(MainActivity.this);
         SQLiteDatabase sqlDB = helper.getReadableDatabase();
         Cursor cursor = sqlDB.query(TaskContract.TABLE,
-                new String[]{TaskContract.Columns._ID, TaskContract.Columns.TASK},
+                new String[]{TaskContract.Columns._ID, TaskContract.Columns.TASK, TaskContract.Columns.DETAILS, TaskContract.Columns.DATE},
                 null,null,null,null,null);
-
-
 
         ListAdapter listAdapter = new SimpleCursorAdapter(
                 this,
                 R.layout.task_view,
                 cursor,
-                new String[] { TaskContract.Columns.TASK},
-                new int[] { R.id.taskTextView},
+                new String[] { TaskContract.Columns.TASK, TaskContract.Columns.DETAILS, TaskContract.Columns.DATE},
+                new int[] { R.id.TitleView, R.id.DetailsView, R.id.DateView},
                 0
         );
-
         this.setListAdapter(listAdapter);
 
     }
 
     public void onDoneButtonClick(View view) {
         View v = (View) view.getParent();
-        TextView taskTextView = (TextView) v.findViewById(R.id.taskTextView);
+        TextView taskTextView = (TextView) v.findViewById(R.id.TitleView);
         String task = taskTextView.getText().toString();
 
         String sql = String.format("DELETE FROM %s WHERE %s = '%s'",

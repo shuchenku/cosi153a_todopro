@@ -8,14 +8,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/taskTextView"
+        android:id="@+id/TitleView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20dp"
+        android:textSize="32dp"
         android:layout_toLeftOf="@+id/doneButton"
         android:layout_alignBottom="@+id/doneButton"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/DetailsView"
+        android:textSize="20dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/doneButton"
+        android:layout_below="@+id/TitleView"
+        android:layout_toLeftOf="@+id/doneButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/DateView"
+        android:textSize="20dp"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/DetailsView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="italic" />
 
     <Button
         android:layout_width="wrap_content"
