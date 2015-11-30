@@ -18,7 +18,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:text="@string/title" />
+            android:text="@string/title"
+            android:layout_gravity="top|bottom"
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/Title"
@@ -41,7 +43,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:text="@string/details" />
+            android:text="@string/details"
+            android:layout_gravity="top|bottom"
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/Details"
@@ -54,7 +58,71 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@+id/details"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/date">
+
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/date"
+            android:layout_gravity="top|bottom"
+            android:textAlignment="inherit"
+            android:textIsSelectable="true"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.39"
+            android:id="@+id/dateString" />
+
+        <Button
+            android:id="@+id/date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_date"
+            android:onClick="showDatePickerDialog" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/date"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/time">
+
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/time"
+            android:textIsSelectable="true"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/timeString" />
+
+        <Button
+            android:id="@+id/time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_time"
+            android:onClick="showTimePickerDialog" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
@@ -74,6 +142,5 @@
             android:text="@string/cancel"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
-
 
 </RelativeLayout>

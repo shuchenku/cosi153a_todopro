@@ -2,6 +2,10 @@
     <string name="app_name">ToDoPro</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="title">Title</string>
+    <string name="title">Title:</string>
     <string name="details">Details:</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="set_date">Set date</string>
+    <string name="set_time">Set time</string>
 </resources>
