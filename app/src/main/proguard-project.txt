@@ -1,1 +1,1 @@
-/home/jaft/MEGA/cosi153a_todopro/app/proguard-rules.pro
+../../proguard-rules.pro
