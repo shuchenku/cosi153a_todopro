@@ -86,7 +86,6 @@ public class MainActivity extends ListActivity  {
                 final String title = iData.getExtras().getString("TITLE");
                 final String details = iData.getExtras().getString("DETAILS");
                 final Date datetime = (Date) iData.getExtras().getSerializable("TIME");
-                final boolean alarm = iData.getExtras().getBoolean("ALARM");
 
                 Log.v(TAG,title+details);
                 helper = new TaskDBHelper(MainActivity.this);
@@ -94,14 +93,6 @@ public class MainActivity extends ListActivity  {
                 ContentValues values = new ContentValues();
 
                 Log.d(TAG,title+ ":" + details + ":" + time.format(datetime));
-
-                if (alarm) {
-                    Calendar alarmTime = new GregorianCalendar();
-                    alarmTime.setTime(datetime);
-                    Intent myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-                    pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
-                    alarmManager.set(AlarmManager.RTC, alarmTime.getTimeInMillis(), pendingIntent);
-                }
 
                 values.clear();
                 values.put(TaskContract.Columns.TASK, title);
@@ -184,6 +175,8 @@ public class MainActivity extends ListActivity  {
     }
 
     public void onToggleClicked(View view) throws ParseException {
+
+        Log.d(TAG, "in toggle button");
         View v =(View) view.getParent();
         TextView taskTextView = (TextView) v.findViewById(R.id.TitleView);
         TextView timeTextView = (TextView) v.findViewById(R.id.DateView);
@@ -197,17 +190,17 @@ public class MainActivity extends ListActivity  {
             Calendar alarmTime = new GregorianCalendar();
             alarmTime.setTime(datetime);
             alarmManager.set(AlarmManager.RTC, alarmTime.getTimeInMillis(), pendingIntent);
-            saveButtonState(piid,true);
+//            saveButtonState(piid,true);
         } else {
             alarmManager.cancel(pendingIntent);
-            saveButtonState(piid,false);
+//            saveButtonState(piid,false);
         }
     }
 
-    public void saveButtonState(int piid, boolean pressed) {
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(String.valueOf(piid), pressed);
-        editor.commit();
-    }
+//    public void saveButtonState(int piid, boolean pressed) {
+//        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putBoolean(String.valueOf(piid), pressed);
+//        editor.commit();
+//    }
 }

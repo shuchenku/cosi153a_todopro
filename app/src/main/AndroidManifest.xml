@@ -3,6 +3,7 @@
     package="com.cosi153a.todopro" >
 
     <uses-permission android:name="com.example.googlemaps.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -47,13 +48,13 @@
             android:name=".MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
-
-
-
+        <service
+            android:name=".AlarmService"
+            android:enabled="true" />
+        <receiver android:name=".AlarmReceiver" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyD_TVcvoS1eGA11GMHRayxPQY48D8POZzA" />
-
 
     </application>
 
