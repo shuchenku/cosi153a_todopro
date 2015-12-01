@@ -15,6 +15,7 @@ import android.app.DialogFragment;
 import android.app.Dialog;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ToggleButton;
 import android.app.DatePickerDialog;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +26,7 @@ public class NewToDoActivity extends Activity {
     private String title;
     private String details;
     private static Calendar time;
+    private boolean alarm;
     private static TextView dateTextView;
     private static TextView timeTextView;
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");;
@@ -104,6 +106,7 @@ public class NewToDoActivity extends Activity {
 
         final Button submitBtn = (Button) findViewById(R.id.btnSubmit);
         final Button cancelBtn = (Button) findViewById(R.id.btnCancel);
+        final Button alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -113,6 +116,7 @@ public class NewToDoActivity extends Activity {
             }
         });
 
+
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setResult(Activity.RESULT_CANCELED);
@@ -121,6 +125,15 @@ public class NewToDoActivity extends Activity {
         });
     }
 
+    public void onToggleClicked(View view) {
+        if (((ToggleButton) view).isChecked()) {
+            Log.d(TAG, "Alarm On");
+            alarm = true;
+        } else {
+            alarm = false;
+            Log.d(TAG, "Alarm Off");
+        }
+    }
 
     private void setTodo()
     {
@@ -131,13 +144,13 @@ public class NewToDoActivity extends Activity {
 
         todo.putString("TITLE",title);
         todo.putString("DETAILS", details);
+        todo.putBoolean("ALARM", alarm);
         todo.putSerializable("TIME", time.getTime());
         data.putExtras(todo);
         setResult(Activity.RESULT_OK,
                 data);
         finish();
     }
-
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
