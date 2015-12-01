@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ToDoPro_master.iml" filepath="$PROJECT_DIR$/ToDoPro_master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cosi153a_todopro.iml" filepath="$PROJECT_DIR$/cosi153a_todopro.iml" />
     </modules>
   </component>
 </project>
