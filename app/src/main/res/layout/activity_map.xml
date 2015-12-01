@@ -18,8 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/map"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" />
 
     <Button android:id="@+id/search_button"
         android:text="Search"

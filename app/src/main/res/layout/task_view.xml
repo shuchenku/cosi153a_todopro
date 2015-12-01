@@ -38,10 +38,10 @@
         android:id="@+id/DateView"
         android:textSize="20dp"
         android:gravity="center_vertical"
+        android:textStyle="italic"
         android:layout_below="@+id/DetailsView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="italic" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -52,5 +52,18 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="onDoneButtonClick"/>
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alarm On/Off"
+        android:id="@+id/mainAlarmToggle"
+        android:onClick="onToggleClicked"
+        android:layout_below="@+id/doneButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textOff="Alarm Off"
+        android:textOn="Alarm On"
+        android:checked="false" />
 
 </RelativeLayout>
