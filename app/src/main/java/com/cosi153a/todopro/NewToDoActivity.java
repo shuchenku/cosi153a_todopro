@@ -149,6 +149,13 @@ public class NewToDoActivity extends Activity {
         newFragment.show(getFragmentManager(), "timePicker");
     }
 
+    public void enterAdd(View view) {
+
+        NewToDoActivity.this.startActivity(new Intent(NewToDoActivity.this, MapActivity.class));
+
+
+    }
+
 }
 
 
