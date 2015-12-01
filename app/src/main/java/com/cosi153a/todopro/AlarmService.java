@@ -21,7 +21,7 @@ public class AlarmService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
-        sendNotification("TASK DUE IDIOT!");
+        sendNotification("TASK DUE!");
     }
 
     private void sendNotification(String msg) {
