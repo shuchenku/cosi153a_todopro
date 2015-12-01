@@ -40,7 +40,6 @@ public class MainActivity extends ListActivity  {
     public static MainActivity instance() {
         return inst;
     }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -53,7 +52,6 @@ public class MainActivity extends ListActivity  {
         setContentView(R.layout.main);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         updateUI();
-//        updateButtonState();
     }
 
     @Override

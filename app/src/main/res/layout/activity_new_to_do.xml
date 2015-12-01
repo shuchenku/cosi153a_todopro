@@ -122,33 +122,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@+id/time"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/alarm">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="@string/alarm"
-            android:textSize="20dp"
-            android:gravity="top|bottom" />
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alarm On/Off"
-            android:id="@+id/alarmToggle"
-            android:layout_below="@+id/time"
-            android:onClick="onToggleClicked" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/alarm"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
@@ -167,6 +141,15 @@
             android:layout_weight="0.375"
             android:text="@string/cancel"
             android:layout_gravity="center_vertical" />
+
+        <Button
+            android:id="@+id/btnEnterAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.375"
+            android:text="@string/enteraddress"
+            android:layout_gravity="center_vertical"
+            android:onClick="enterAdd"/>
     </LinearLayout>
 
 </RelativeLayout>

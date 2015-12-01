@@ -8,5 +8,9 @@
     <string name="time">Time:</string>
     <string name="set_date">Set date</string>
     <string name="set_time">Set time</string>
-    <string name="alarm">Alarm:</string>
+    <string name="enteraddress">Enter Address</string>
+    <string name="title_activity_map">MapActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
