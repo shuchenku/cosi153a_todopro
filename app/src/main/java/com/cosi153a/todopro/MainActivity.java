@@ -1,8 +1,6 @@
 package com.cosi153a.todopro;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,21 +21,13 @@ import com.cosi153a.todopro.db.TaskDBHelper;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class MainActivity extends ListActivity {
 
     private TaskDBHelper helper;
     public static final int REQUEST_CODE = 1111;
     public static final String TAG = "MainActivity";
-    private static MainActivity inst;
-    PendingIntent pendingIntent;
-    AlarmManager alarmManager;
 
-
-    public static MainActivity instance() {
-        return inst;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +37,9 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        inst = this;
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         return true;
     }
 
@@ -85,7 +68,6 @@ public class MainActivity extends ListActivity {
                 final String title = iData.getExtras().getString("TITLE");
                 final String details = iData.getExtras().getString("DETAILS");
                 final Date datetime = (Date) iData.getExtras().getSerializable("TIME");
-                final boolean alarm = iData.getExtras().getBoolean("ALARM");
 
                 Log.v(TAG,title+details);
                 helper = new TaskDBHelper(MainActivity.this);
@@ -93,16 +75,7 @@ public class MainActivity extends ListActivity {
                 ContentValues values = new ContentValues();
                 SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                if (alarm) {
-                    Calendar alarmTime = new GregorianCalendar();
-                    alarmTime.setTime(datetime);
-                    Intent myIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-                    pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
-                    alarmManager.set(AlarmManager.RTC, alarmTime.getTimeInMillis(), pendingIntent);
-                } else {
-                    alarmManager.cancel(pendingIntent);
-                    Log.d(TAG, "Alarm Off");
-                }
+                Log.d(TAG,title+ ":" + details + ":" + time.format(datetime));
 
                 values.clear();
                 values.put(TaskContract.Columns.TASK, title);
@@ -110,6 +83,8 @@ public class MainActivity extends ListActivity {
                 values.put(TaskContract.Columns.DATE, time.format(datetime));
                 db.insertWithOnConflict(TaskContract.TABLE, null, values,
                         SQLiteDatabase.CONFLICT_IGNORE);
+//                Log.v( TAG, "Retrieved Value zData is "+zData );
+                //..logcats "Retrieved Value zData is returnValueAsString"
 
                 updateUI();
 
