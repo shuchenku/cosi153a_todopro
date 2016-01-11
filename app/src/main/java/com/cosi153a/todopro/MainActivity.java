@@ -1,16 +1,13 @@
 package com.cosi153a.todopro;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.LoginFilter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
@@ -104,7 +101,6 @@ public class MainActivity extends ListActivity  {
                 //..logcats "Retrieved Value zData is returnValueAsString"
 
                 updateUI();
-//                updateButtonState();
             }
         }
 
@@ -118,39 +114,17 @@ public class MainActivity extends ListActivity  {
                 new String[]{TaskContract.Columns._ID, TaskContract.Columns.TASK, TaskContract.Columns.DETAILS, TaskContract.Columns.DATE},
                 null,null,null,null,null);
 
-        ListAdapter listAdapter = new SimpleCursorAdapter(
+        ListAdapter listAdapter = new CursorAdapterWithToggle(
                 this,
                 R.layout.task_view,
-                cursor,
-                new String[] { TaskContract.Columns.TASK, TaskContract.Columns.DETAILS, TaskContract.Columns.DATE},
-                new int[] { R.id.TitleView, R.id.DetailsView, R.id.DateView},
-                0
-        );
+                cursor,0);
+//        new String[] { TaskContract.Columns.TASK, TaskContract.Columns.DETAILS, TaskContract.Columns.DATE},
+//                new int[] { R.id.TitleView, R.id.DetailsView, R.id.DateView}
+
+
 
         this.setListAdapter(listAdapter);
     }
-
-//    public void updateButtonState() {
-//
-//        ListView v = this.getListView();
-//        Log.d(TAG,"found these:" + v.getCount() );
-//
-//        for (int i=0; i<=v.getCount(); i++) {
-//            View cur = v.getAdapter().getView(i,null,null);
-//            Log.d(TAG,"at item" + i);
-//            TextView taskTextView = (TextView) cur.findViewById(R.id.TitleView);
-//            ToggleButton tb = (ToggleButton) cur.findViewById(R.id.mainAlarmToggle);
-//            String task = taskTextView.getText().toString();
-//            int piid = task.hashCode();
-//            String key = String.valueOf(piid);
-//            SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-//            boolean set = sharedPreferences.getBoolean(key,false);
-//            Log.d(TAG,"this button set: " + set);
-//            tb.setChecked(set);
-//        }
-//
-//
-//    }
 
     public void onDoneButtonClick(View view) {
         View v = (View) view.getParent();
@@ -171,7 +145,6 @@ public class MainActivity extends ListActivity  {
         SQLiteDatabase sqlDB = helper.getWritableDatabase();
         sqlDB.execSQL(sql);
         updateUI();
-//        updateButtonState();
     }
 
     public void onToggleClicked(View view) throws ParseException {
@@ -190,17 +163,21 @@ public class MainActivity extends ListActivity  {
             Calendar alarmTime = new GregorianCalendar();
             alarmTime.setTime(datetime);
             alarmManager.set(AlarmManager.RTC, alarmTime.getTimeInMillis(), pendingIntent);
-//            saveButtonState(piid,true);
+            saveButtonState(piid,true);
         } else {
             alarmManager.cancel(pendingIntent);
-//            saveButtonState(piid,false);
+            saveButtonState(piid,false);
         }
+
+        updateUI();
     }
 
-//    public void saveButtonState(int piid, boolean pressed) {
-//        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putBoolean(String.valueOf(piid), pressed);
-//        editor.commit();
-//    }
+    public void saveButtonState(int piid, boolean pressed) {
+        SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(String.valueOf(piid), pressed);
+        Log.d("IN MAIN ACTIVITY", getPackageName()+": "+String.valueOf(piid));
+        editor.commit();
+        Log.d("IN MAIN ACTIVITY", String.valueOf(sharedPreferences.contains(String.valueOf(piid))));
+    }
 }
