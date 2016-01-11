@@ -38,7 +38,7 @@ public class AlarmService extends IntentService {
                 .setContentText(msg);
 
 
-        alamNotificationBuilder.setContentIntent(contentIntent);
+        alamNotificationBuilder.setContentIntent(contentIntent);s
         alarmNotificationManager.notify(1, alamNotificationBuilder.build());
         Log.d("AlarmService", "Notification sent.");
     }
